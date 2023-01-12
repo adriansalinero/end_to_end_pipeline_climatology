@@ -1,0 +1,46 @@
+
+version: 2
+
+models:
+  - name: fct_countries_historic_dbt
+    columns:
+      - name: name
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_countries_yearly_dbt
+    columns:
+      - name: name
+        tests:
+          - not_null
+      - name: date
+        tests:
+          - not_null
+
+  - name: fct_stations_daily_dbt
+    columns:
+      - name: id
+        tests:
+          - not_null
+      - name: date
+        tests:
+          - not_null
+
+  - name: fct_stations_monthly_dbt
+    columns:
+      - name: id
+        tests:
+          - not_null
+      - name: date
+        tests:
+          - not_null
+
+  - name: fct_stations_yearly_dbt
+    columns:
+      - name: id
+        tests:
+          - not_null
+      - name: date
+        tests:
+          - not_null

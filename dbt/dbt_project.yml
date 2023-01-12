@@ -1,0 +1,31 @@
+name: 'climatalogy'
+version: '1.0.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  
+clean-targets:         
+  - "target"
+  - "dbt_packages"
+
+models:
+  climatology:
+    staging:
+      materialized: view
+    core:
+      materialized: table
+
+vars:
+  starting_year: 2000
+  ending_year: 2022
+  specific_years_tables:
+    - name: '2000'
+    - name: '2022'

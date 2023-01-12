@@ -1,0 +1,5 @@
+airflow-provider-great-expectations==0.1.1
+pandas
+pyarrow
+pyspark==3.2.0
+apache-airflow-providers-google

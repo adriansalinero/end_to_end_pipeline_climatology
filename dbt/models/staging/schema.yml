@@ -1,0 +1,46 @@
+version: 2
+
+sources:
+    - name: staging
+      database: global-maxim-9999
+      schema: climatology
+      tables:
+        - name: stations
+        - name: countries
+
+    - name: staging_years
+      database: global-maxim-9999
+      schema: climatology
+      tables: "{{ var('specific_years_tables') }}"
+
+models:
+  - name: stg_countries
+    columns:
+      - name: code
+        tests:
+          - not_null
+          - unique
+      - name: name
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_stations
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: country_code
+        tests:
+          - not_null
+
+  - name: stg_years_unioned
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: id
+        tests:
+          - not_null
+

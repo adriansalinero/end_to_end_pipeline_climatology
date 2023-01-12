@@ -1,0 +1,27 @@
+name: GitHub Actions Demo
+run-name: CI
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Lint with Flake8
+        run: |
+          pip install flake8
+          flake8 --ignore W503,E501,E203 airflow/dags --benchmark -v
+      - name: Confirm Black code compliance
+        run: |
+          pip install pytest-black
+          pytest airflow/dags --black -v
+      - name: Test DAGs with Pytest
+        env: 
+          GCP_PROJECT: global-maxim-9999
+          AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=google_credentials.json'
+        run: |
+          pip install pytest
+          pip install -r .github/workflows/requirements.txt
+          pytest airflow/tests/test_dag_validation.py
+      - run: echo "🍏 This job's status is ${{ job.status }}."
